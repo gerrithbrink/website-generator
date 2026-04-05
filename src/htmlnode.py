@@ -18,4 +18,40 @@ class HTMLNode:
             return ''
         
     def __repr__(self) -> str:
-        return f'tag: {self.tag}, value: {self.value}, children: {self.children}, props: {self.props}'
+        return f'tag: {self.tag}, value: {self.value}, children: {self.children}, props: {self.props_to_html()}'
+    
+class LeafNode(HTMLNode):
+    def __init__(self, tag, value, props=None) -> None:
+        super().__init__(tag=tag, value=value, props=props)
+
+    def to_html(self):
+        if self.value is None:
+            raise ValueError('Missing Value')
+        elif self.tag is None:
+            return self.value
+        else:
+            return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+        
+    
+    def __repr__(self) -> str:
+        return f'tag: {self.tag}, value: {self.value}, props: {self.props_to_html()}'
+    
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props=None) -> None:
+        super().__init__(tag=tag, children=children, props=props)
+
+    def to_html(self):
+        if self.tag is None:
+            raise ValueError('Missing Tag')
+        elif self.children is None:
+            raise ValueError('Missing Children')
+        else:
+            value = ''
+            for child in self.children:
+                value += child.to_html()
+            return f"<{self.tag}{self.props_to_html()}>{value}</{self.tag}>"
+
+    
+
+    
+
