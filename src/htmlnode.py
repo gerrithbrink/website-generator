@@ -13,7 +13,10 @@ class HTMLNode:
     
     def props_to_html(self):
         if self.props:
-            return f' href="{self.props['href']}" target="{self.props['target']}"'
+            props_str = ''
+            for key, value in self.props.items():
+                props_str += f' {key}="{value}"'
+            return props_str
         else:
             return ''
         
