@@ -1,1 +1,1 @@
-python3 src/main.py "https://github.com/gerrithbrink/website-generator/"
+python3 src/main.py "https://github.com/gerrithbrink/website-generator/docs/"
